@@ -5,6 +5,7 @@
   electronic journals are http://www.imstat.org/ejp/ and http://www.imstat.org/ecp/
 
 COPYRIGHT
+  Copyright (c) 2019 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
   Copyright (c) 2016 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
   Copyright (c) 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
   The original ECP logo was designed when Ren\'e CARMONA was in charge of ECP
@@ -51,6 +52,8 @@ LATEST VERSION
    http:/mirror.ctan.org/macros/latex/contrib/ejpecp/
 
 CHANGELOG
+  2019/03/27 v1.6
+    Full url doi links, new package maintainer, shorttitle info
   2016/09/06 v1.5
     hypertexnames=false configuration for hyperref package
   2016/04/06 v1.4
