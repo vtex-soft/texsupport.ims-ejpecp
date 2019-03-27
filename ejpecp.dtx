@@ -25,7 +25,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{ejpecp}
 %<*class>   
-    [2016/09/06 v1.5 .dtx ejpecp file]
+    [2019/03/28 v1.6 .dtx ejpecp file]
 %</class>
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2016 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
 %<class>\ClassInfo{ejpecp}{Copyright (c), 2011-2015 BURDZY and CHAFAI for EJP-ECP.}
@@ -44,7 +44,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{709}
+% \CheckSum{716}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -74,6 +74,7 @@
 % \changes{v1.3}{2016/02/23}{Updated journal URLs and DOI output format}
 % \changes{v1.4}{2016/04/06}{Abstract baselineskip correction}
 % \changes{v1.5}{2016/09/06}{hypertexnames=false configuration for hyperref package}
+% \changes{v1.6}{2019/03/28}{full url doi, package maintaining and shorttitle info}
 % \GetFileInfo{ejpecp.dtx}
 %
 % \DoNotIndex{\newcommand,\newenvironment}
@@ -275,6 +276,8 @@
       \textbf{ in PROBABILITY}\\
       \rule[.08in]{1.3in}{1.6pt}}}%
   }%ECPLOGO
+\def\@doiprefix{https://doi.org/}
+\def\printdoi{\texttt{\href{\@doiprefix\@DOI}{\@doiprefix\@DOI}}}
 %% Macro handling the first page
 \newcommand{\FIRSTPAGE}{%
   \setcounter{page}{\@PAGESTART}%
@@ -286,7 +289,7 @@
         no. \@PAPERNUM, \,\@PAGESTART--\@PAGEEND.}%
       \centerline{ISSN:\ \texttt{\href{http://\@URL/}{\@ISSN}} %
         \ifx\@DOI\undefined\else 
-          \ DOI: \texttt{\href{https://doi.org/\@DOI}{\@DOI}}%
+          \ \printdoi
         \fi}%
       \bigskip
       \bigskip
@@ -299,7 +302,7 @@
         no. \@PAPERNUM, \@PAGESTART--\@PAGEEND.\\
         \ifx\@DOI\undefined
         \else 
-          \ DOI: \texttt{\href{https://doi.org/\@DOI}{\@DOI}}%
+          \ \printdoi
         \fi \\
         ISSN:\ \texttt{\href{http://\@URL/}{\@ISSN}}%
         }%
@@ -354,12 +357,12 @@
 %% Macro setting the PDF title
 \newcommand{\PDFFIELDS}{% 
   \hypersetup{%
-    pdftitle={\@JOURNALA\ \@VOLUME\ (\@YEAR), no. \@PAPERNUM, DOI: \@DOI}}%
+    pdftitle={\@JOURNALA\ \@VOLUME\ (\@YEAR), no. \@PAPERNUM, \@doiprefix\@DOI}}%
   \hypersetup{pdfkeywords={\@KEYWORDS}}%
   \hypersetup{pdfproducer={\@JOURNAL\ Managing Editor http://\@URL/}}%
   \hypersetup{pdfcreator={LaTeX with ejpecp.cls v1.4}}%
   \hypersetup{pdfsubject={Probability Theory}}%
-  \hypersetup{pdfauthor={Please see https://doi.org/\@DOI}}%
+  \hypersetup{pdfauthor={Please see \@doiprefix\@DOI}}%
   }%END-PDFFIELDS
 
 %% Bibliography
@@ -464,7 +467,7 @@
 \fi
 %% Headings
 \newcommand{\@HBLOB}{%
-  \href{https://doi.org/\@DOI}%
+  \href{\@doiprefix\@DOI}%
     {\@JOURNAL\ \textbf{\@VOLUME}\, (\@YEAR),\ paper \@PAPERNUM.}}
 \renewcommand{\@evenfoot}{%
   \normalfont\footnotesize\@HBLOB\hfil
