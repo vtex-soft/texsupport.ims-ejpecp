@@ -6,7 +6,8 @@ DESCRIPTION
 
 COPYRIGHT
   Copyright (c) 2019 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
-  Copyright (c) 2016 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
+  Copyright (c) 2018 by Deimantas GALCIUS, VTeX, Lithuania for EJP-ECP
+  Copyright (c) 2016-2017 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
   Copyright (c) 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
   The original ECP logo was designed when Ren\'e CARMONA was in charge of ECP
   The original EJP logo was designed by Krzysztof BURDZY
@@ -44,7 +45,7 @@ DEPENDENCIES
   ejpecp is a LaTeX2e document class designed to be used with a pdflatex engine.
   ejpecp relies on the following packages: amsmath, amsfonts, amssymb, amsthm,
   bera, dsfont, hyperref, geometry, graphicx, lastpage, latexsym, mathtools, 
-  fixltx2e, microtype. It was also successfully tested with the next 
+  microtype, afterpackage. It was also successfully tested with the next 
   generation engine lualatex.
 
 LATEST VERSION
@@ -52,6 +53,11 @@ LATEST VERSION
    http:/mirror.ctan.org/macros/latex/contrib/ejpecp/
 
 CHANGELOG
+  2019/04/04 v1.7
+    Merged changes with production version:
+      fixltx2e dependency removed
+      natbib setup with afterpackage
+      cosmetic changes
   2019/03/28 v1.6
     Full url doi links, new package maintainer, shorttitle info
   2016/09/06 v1.5

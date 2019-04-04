@@ -1,8 +1,9 @@
 % \iffalse meta-comment
 %
 % Copyright (c) 2019 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
-% Copyright (c) 2016 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
-% Copyright (C), 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
+% Copyright (c) 2018 by Deimantas GALCIUS, VTeX, Lithuania
+% Copyright (c) 2016-2017 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
+% Copyright (c), 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
 % ---------------------------------------------------------------------------
 % 
 % This file may be distributed and/or modified under the
@@ -25,9 +26,11 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{ejpecp}
 %<*class>   
-    [2019/03/28 v1.6 .dtx ejpecp file]
+    [2019/04/04 v1.7 class for EJP and ECP journals]
 %</class>
-%<class>\ClassInfo{ejpecp}{Copyright (c) 2016 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
+%<class>\ClassInfo{ejpecp}{Copyright (c) 2019 Edgaras SAKURAS, VTeX, Lithuania.}
+%<class>\ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
+%<class>\ClassInfo{ejpecp}{Copyright (c) 2016-2017 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
 %<class>\ClassInfo{ejpecp}{Copyright (c), 2011-2015 BURDZY and CHAFAI for EJP-ECP.}
 %
 %<*driver>
@@ -44,7 +47,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{716}
+% \CheckSum{785}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -75,11 +78,16 @@
 % \changes{v1.4}{2016/04/06}{Abstract baselineskip correction}
 % \changes{v1.5}{2016/09/06}{hypertexnames=false configuration for hyperref package}
 % \changes{v1.6}{2019/03/28}{full url doi, package maintaining and shorttitle info}
+% \changes{v1.7}{2019/04/04}{merged with production version: fixltx2e removed, natbib setup with afterpackage, etc}
 % \GetFileInfo{ejpecp.dtx}
 %
 % \DoNotIndex{\newcommand,\newenvironment}
 %
-% \title{The ejpecp class\thanks{\fileinfo\ \fileversion\ dated \filedate.}}
+% \title{The ejpecp class\thanks{\fileinfo\ \fileversion\ dated \filedate.}%
+%   \thanks{Current maintainer of class file is
+%   \href{http://www.vtex.lt}{VTeX, Lithuania}. Please send all queries to
+%   \href{mailto:latex-support@vtex.lt}{\texttt{latex-support@vtex.lt}}.}}
+%
 % \author{K. Burdzy\and \href{http://djalil.chafai.net/}{D. Chafa\"\i}}
 %
 % \maketitle
@@ -157,16 +165,14 @@
 %% We use the standard article class
 \LoadClass[a4paper,10pt,twoside]{article} 
 %% Packages and their options
+\RequirePackage{graphicx}
 \ifx\@PSTRICKS\undefined
-  \RequirePackage[pdftex]{graphicx}
   \DeclareGraphicsExtensions{.pdf,.PDF,.eps,.EPS,.png,.PNG,.jpg,.JPG,.jpeg,.JPEG}
 \else
-  \RequirePackage{graphicx}
   \RequirePackage[pdf]{pstricks}
   \RequirePackage{auto-pst-pdf}
 \fi
 \RequirePackage{mathtools}
-\RequirePackage{fixltx2e}
 \RequirePackage{microtype}
 \RequirePackage{lastpage}
 \RequirePackage{latexsym}
@@ -180,14 +186,15 @@
 \geometry{a4paper,portrait,left=3.5cm,right=3.5cm,top=3.5cm,bottom=3.5cm}
 %\RequirePackage{charter} % Ph. Carmona
 \RequirePackage{bera} % beware that the logo is sensitive to default font change
-\ifx\@PSTRICKS\undefined
-  \RequirePackage[pdftex,pagebackref=false]{hyperref}
-\else
-  \RequirePackage[pagebackref=false]{hyperref}
-\fi
-\hypersetup{pdfborder=0 0 0}
-\hypersetup{pdfstartview={FitH}}
-\hypersetup{hypertexnames=false}
+\RequirePackage{hyperref}
+\hypersetup{
+  pagebackref=false,
+  pdfborder={0 0 0},
+  pdfstartview={FitH},
+  hypertexnames=false,
+  breaklinks,
+}
+\def\UrlFont{}
 %%%% Macros et Environments
 %% General macros
 \newcommand{\@TITLE}{FIXME!}
@@ -206,6 +213,8 @@
 \newcommand{\SHORTTITLE}[1]{\renewcommand{\@SHORTTITLE}{#1}}
 \newcommand{\DEDICATORY}[1]{\gdef\@DEDICATORY{#1}}
 \newcommand{\AUTHORS}[1]{\author{#1}}
+\let\FIRSTNAMES\@firstofone
+\let\SURNAME\@firstofone
 \newcommand{\KEYWORDS}[1]{\renewcommand{\@KEYWORDS}{#1}}
 \newcommand{\AMSSUBJ}[1]{\renewcommand{\@AMSSUBJ}{#1}}
 \newcommand{\AMSSUBJSECONDARY}[1]{\gdef\@AMSSUBJSECONDARY{#1}}
@@ -278,6 +287,8 @@
   }%ECPLOGO
 \def\@doiprefix{https://doi.org/}
 \def\printdoi{\texttt{\href{\@doiprefix\@DOI}{\@doiprefix\@DOI}}}
+%% make title long
+\renewcommand\title[1]{\gdef\@title{#1}}
 %% Macro handling the first page
 \newcommand{\FIRSTPAGE}{%
   \setcounter{page}{\@PAGESTART}%
@@ -293,7 +304,7 @@
         \fi}%
       \bigskip
       \bigskip
-      {\Large\bfseries\@TITLE}%
+      {\Large\bfseries\@TITLE\par}%
     \fi
     \ifx\@ECP\undefined
     \else
@@ -310,7 +321,7 @@
       \@ECPLOGO\\
       \bigskip
       \bigskip
-      {\Large\@TITLE}%
+      {\Large\@TITLE\par}%
     \fi
     }% end title
   \date{%
@@ -371,6 +382,7 @@
   \xdef\@MRSTRIP{\@MRExtract#1 !}%
   \href{http://www.ams.org/mathscinet-getitem?mr=\@MRSTRIP}{MR-\@MRSTRIP}}
 \newcommand{\ARXIV}[1]{\href{http://arXiv.org/abs/#1}{arXiv:#1}}
+\def\bibliography@size{\small}
 \renewenvironment{thebibliography}[1]
   {%
     \section*{\refname
@@ -379,7 +391,7 @@
     \addcontentsline{toc}{section}{\refname}%
     \list{\@biblabel{\@arabic\c@enumiv}}%
     {\settowidth\labelwidth{\@biblabel{#1}}%
-      \small
+      \bibliography@size
       \setlength{\labelsep}{0.4em}%
       \setlength{\leftmargin}{\labelwidth}%
       \addtolength{\leftmargin}{\labelsep}%
@@ -493,7 +505,38 @@
       {\baselineskip}
       {0.25\baselineskip}
       {\normalfont\bfseries}}
-\IfFileExists{ejpecp-hook.sty}{\RequirePackage{ejpecp-hook}}{}
+\RequirePackage{afterpackage}
+\AfterPackage{natbib}
+{%
+  \def\bibcleanup{\vskip-\lastskip\vskip10\p@}%
+  \renewcommand{\bibfont}{\small}%
+  \newlength{\standard@parsep}%
+  \newlength{\standard@itemsep}%
+  \setlength{\standard@parsep}{4.0pt plus 2.0pt minus 1.0pt}%
+  \setlength{\standard@itemsep}{-2.02498pt}%
+  \setlength{\bibsep}{\standard@parsep}%
+  \addtolength{\bibsep}{\standard@itemsep}%
+  \renewcommand\NAT@bibsetnum[1]%
+  {%
+    \settowidth\labelwidth{\@biblabel{#1}}%
+    \setlength{\leftmargin}{\labelwidth}\addtolength{\leftmargin}{\labelsep}%
+    \setlength{\labelsep}{3pt}%
+    \setlength{\itemsep}{\bibsep}\setlength{\parsep}{\z@}%
+    \ifNAT@openbib
+    \addtolength{\leftmargin}{\bibindent}%
+    \setlength{\itemindent}{-\bibindent}%
+    \setlength{\listparindent}{\itemindent}%
+    \setlength{\parsep}{0pt}%
+    \fi
+  }%
+}%
+\InputIfFileExists{ejpecp.cfg}{}{}
+%% Macros
+\AtBeginDocument{\FIRSTPAGE\PDFFIELDS}
+\AtEndDocument{\vfill}
+\endinput
+%%
+%% End of file `ejpecp.cls'.
 %% Macros
 \AtBeginDocument{\FIRSTPAGE\PDFFIELDS}
 \AtEndDocument{\vfill}  
