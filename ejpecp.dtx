@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-% Copyright (c) 2019 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
+% Copyright (c) 2019-2020 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
 % Copyright (c) 2018 by Deimantas GALCIUS, VTeX, Lithuania
 % Copyright (c) 2016-2017 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
 % Copyright (c), 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
@@ -26,9 +26,9 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{ejpecp}
 %<*class>   
-    [2019/04/04 v1.7 class for EJP and ECP journals]
+    [2020/07/30 v1.8.2 class for EJP and ECP journals]
 %</class>
-%<class>\ClassInfo{ejpecp}{Copyright (c) 2019 Edgaras SAKURAS, VTeX, Lithuania.}
+%<class>\ClassInfo{ejpecp}{Copyright (c) 2019-2020 Edgaras SAKURAS, VTeX, Lithuania.}
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2016-2017 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
 %<class>\ClassInfo{ejpecp}{Copyright (c), 2011-2015 BURDZY and CHAFAI for EJP-ECP.}
@@ -47,7 +47,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{785}
+% \CheckSum{801}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -79,6 +79,7 @@
 % \changes{v1.5}{2016/09/06}{hypertexnames=false configuration for hyperref package}
 % \changes{v1.6}{2019/03/28}{full url doi, package maintaining and shorttitle info}
 % \changes{v1.7}{2019/04/04}{merged with production version: fixltx2e removed, natbib setup with afterpackage, etc}
+% \changes{v1.8.2}{2020/07/30}{no. prefix updated and msc2020}
 % \GetFileInfo{ejpecp.dtx}
 %
 % \DoNotIndex{\newcommand,\newenvironment}
@@ -287,9 +288,11 @@
   }%ECPLOGO
 \def\@doiprefix{https://doi.org/}
 \def\printdoi{\texttt{\href{\@doiprefix\@DOI}{\@doiprefix\@DOI}}}
+\def\msc@url{https://ams.org/mathscinet/msc/msc2020.html}
 %% make title long
 \renewcommand\title[1]{\gdef\@title{#1}}
 %% Macro handling the first page
+\def\papernum@name{no.}
 \newcommand{\FIRSTPAGE}{%
   \setcounter{page}{\@PAGESTART}%
   \title{\small 
@@ -297,7 +300,7 @@
       \@EJPLOGO
       \bigskip
       \centerline{\@JOURNALA\ \textbf{\@VOLUME} (\@YEAR),\ 
-        no. \@PAPERNUM, \,\@PAGESTART--\@PAGEEND.}%
+        \papernum@name\ \@PAPERNUM, \,\@PAGESTART--\@PAGEEND.}%
       \centerline{ISSN:\ \texttt{\href{http://\@URL/}{\@ISSN}} %
         \ifx\@DOI\undefined\else 
           \ \printdoi
@@ -310,7 +313,7 @@
     \else
       \parbox[t]{9cm}{%
         \@JOURNALA\ \textbf{\@VOLUME} (\@YEAR),
-        no. \@PAPERNUM, \@PAGESTART--\@PAGEEND.\\
+        \papernum@name\ \@PAPERNUM, \@PAGESTART--\@PAGEEND.\\
         \ifx\@DOI\undefined
         \else 
           \ \printdoi
@@ -336,7 +339,7 @@
     \@ABSTRACT\par\vskip 1em\relax
     {\footnotesize
       \noindent\textbf{Keywords: }\@KEYWORDS.\par
-      \noindent\textbf{AMS MSC 2010: }%
+      \noindent\href\msc@url{\textbf{MSC2020 subject classifications: }}%
       \ifx\@AMSSUBJSECONDARY\undefined
         \noindent
         \@AMSSUBJ.\par
@@ -368,10 +371,10 @@
 %% Macro setting the PDF title
 \newcommand{\PDFFIELDS}{% 
   \hypersetup{%
-    pdftitle={\@JOURNALA\ \@VOLUME\ (\@YEAR), no. \@PAPERNUM, \@doiprefix\@DOI}}%
+    pdftitle={\@JOURNALA\ \@VOLUME\ (\@YEAR), \papernum@name\ \@PAPERNUM, \@doiprefix\@DOI}}%
   \hypersetup{pdfkeywords={\@KEYWORDS}}%
   \hypersetup{pdfproducer={\@JOURNAL\ Managing Editor http://\@URL/}}%
-  \hypersetup{pdfcreator={LaTeX with ejpecp.cls v1.4}}%
+  \hypersetup{pdfcreator={LaTeX with ejpecp.cls v1.8.2}}%
   \hypersetup{pdfsubject={Probability Theory}}%
   \hypersetup{pdfauthor={Please see \@doiprefix\@DOI}}%
   }%END-PDFFIELDS
@@ -530,7 +533,10 @@
     \fi
   }%
 }%
-\InputIfFileExists{ejpecp.cfg}{}{}
+\def\amp{&}%
+\InputIfFileExists{ejpecp.cfg}
+    {}
+    {\def\papernum@name{article no.}}
 %% Macros
 \AtBeginDocument{\FIRSTPAGE\PDFFIELDS}
 \AtEndDocument{\vfill}
