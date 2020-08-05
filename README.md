@@ -18,8 +18,8 @@ and https://www.imstat.org/journals-and-publications/electronic-communications-i
 -   The original EJP logo was designed by Krzysztof BURDZY
 -   The current \MR macro was provided by Martin HAIRER
 -   The class internals benefited from the comments of S\'ebastien GOU\"EZEL
--   The mgetmref.py script is Copyright (c) 2004 S. TOLUSIS and Jim PITMAN
--   The mgetmref.py script is free software licensed under the GPL
+-   The `getmref.py` script is Copyright (c) 2017 S. TOLUSIS, J. PITMAN, L. TOLENE
+-   The `getmref.py` script is free software licensed under the GPL
 -   See http://www.e-publications.org/ims/support/batchmref.html
 
 ## FILE LIST
@@ -28,7 +28,7 @@ and https://www.imstat.org/journals-and-publications/electronic-communications-i
 -   `sample.pdf` - sample article for EJP or ECP (PDF compiled)
 -   `LPPL` - a copy of the LaTeX Project Public License
 -   `README.md` - this file itself!
--   `mgetref.py` - Python script to add MR URLs in bibliographies 
+-   `getmref.py` - Python2 script to add MR URLs in bibliographies 
 -   `ejpecp.dtx` - class source file 
 -   `ejpecp.ins` - class install file
 -   `ejpecp.pdf` - class documentation
@@ -65,6 +65,9 @@ http:/mirror.ctan.org/macros/latex/contrib/ejpecp/
 
 ## CHANGELOG
 
+-   2020/08/05 v1.8.3
+    -   Updated `getmref.py`
+    -   README converted to Markdown syntax
 -   2020/07/30 v1.8.2
     -   Updated AMS keywords to MSC2020 with url link
     -   Updated article no. prefix
