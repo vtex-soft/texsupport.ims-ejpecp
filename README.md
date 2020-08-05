@@ -61,13 +61,16 @@ generation engine `lualatex`.
 ## LATEST VERSION
 
 The latest version is on the CTAN at: 
-http:/mirror.ctan.org/macros/latex/contrib/ejpecp/
+https://www.ctan.org/pkg/ejpecp
+
+Source code and development is on the GitHub at:
+https://github.com/vtex-soft/texsupport.ims-ejpecp
 
 ## CHANGELOG
 
 -   2020/08/05 v1.8.3
     -   Updated `getmref.py`
-    -   README converted to Markdown syntax
+    -   Updated README and converted to Markdown syntax
 -   2020/07/30 v1.8.2
     -   Updated AMS keywords to MSC2020 with url link
     -   Updated article no. prefix
