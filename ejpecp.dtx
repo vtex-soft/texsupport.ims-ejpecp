@@ -11,7 +11,7 @@
 % of this license or (at your option) any later version.
 % The latest version of this license is in:
 %
-%    http://www.latex-project.org/lppl.txt
+%   https://www.latex-project.org/lppl.txt
 %
 % and version 1.2 or later is part of all distributions of LaTeX 
 % version 1999/12/01 or later.
@@ -26,7 +26,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{ejpecp}
 %<*class>   
-    [2020/07/30 v1.8.2 class for EJP and ECP journals]
+    [2020/08/26 v1.8.3 class for EJP and ECP journals]
 %</class>
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2019-2020 Edgaras SAKURAS, VTeX, Lithuania.}
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
@@ -47,7 +47,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{801}
+% \CheckSum{805}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -80,13 +80,14 @@
 % \changes{v1.6}{2019/03/28}{full url doi, package maintaining and shorttitle info}
 % \changes{v1.7}{2019/04/04}{merged with production version: fixltx2e removed, natbib setup with afterpackage, etc}
 % \changes{v1.8.2}{2020/07/30}{no. prefix updated and msc2020}
+% \changes{v1.8.3}{2020/08/26}{Update URLs}
 % \GetFileInfo{ejpecp.dtx}
 %
 % \DoNotIndex{\newcommand,\newenvironment}
 %
 % \title{The ejpecp class\thanks{\fileinfo\ \fileversion\ dated \filedate.}%
 %   \thanks{Current maintainer of class file is
-%   \href{http://www.vtex.lt}{VTeX, Lithuania}. Please send all queries to
+%   \href{https://vtex.lt}{VTeX, Lithuania}. Please send all queries to
 %   \href{mailto:latex-support@vtex.lt}{\texttt{latex-support@vtex.lt}}.}}
 %
 % \author{K. Burdzy\and \href{http://djalil.chafai.net/}{D. Chafa\"\i}}
@@ -133,6 +134,7 @@
   \newcommand{\@JOURNALL}{Electronic Journal of Probability}
   \newcommand{\@ISSN}{1083-6489}
   \newcommand{\@URL}{www.imstat.org/ejp}
+  \newcommand{\@FULLURL}{https://imstat.org/journals-and-publications/electronic-journal-of-probability/}
   }
 \DeclareOption{ECP}{%
   \newcommand{\@ECP}{}
@@ -141,6 +143,7 @@
   \newcommand{\@JOURNALL}{Electronic Communications in Probability}
   \newcommand{\@ISSN}{1083-589X}
   \newcommand{\@URL}{www.imstat.org/ecp}
+  \newcommand{\@FULLURL}{https://imstat.org/journals-and-publications/electronic-communications-in-probability/}
   }
 \DeclareOption{NOAMS}{% prevents the load of AMS packages
   \newcommand{\@NOAMS}{}
@@ -301,7 +304,7 @@
       \bigskip
       \centerline{\@JOURNALA\ \textbf{\@VOLUME} (\@YEAR),\ 
         \papernum@name\ \@PAPERNUM, \,\@PAGESTART--\@PAGEEND.}%
-      \centerline{ISSN:\ \texttt{\href{http://\@URL/}{\@ISSN}} %
+      \centerline{ISSN:\ \texttt{\href{\@FULLURL}{\@ISSN}} %
         \ifx\@DOI\undefined\else 
           \ \printdoi
         \fi}%
@@ -318,7 +321,7 @@
         \else 
           \ \printdoi
         \fi \\
-        ISSN:\ \texttt{\href{http://\@URL/}{\@ISSN}}%
+        ISSN:\ \texttt{\href{\@FULLURL}{\@ISSN}}%
         }%
       \hfill
       \@ECPLOGO\\
@@ -354,13 +357,13 @@
       \else
         \noindent
         Supersedes
-        \texttt{\href{http://arXiv.org/abs/\@ARXIVID}{arXiv:\@ARXIVID}}.%
+        \texttt{\href{https://arXiv.org/abs/\@ARXIVID}{arXiv:\@ARXIVID}}.%
       \fi\par
       \ifx\@HALID\undefined
       \else
         \noindent
         Supersedes     
-        \texttt{\href{http://hal.archives-ouvertes.fr/\@HALID}{HAL:\@HALID}}.%
+        \texttt{\href{https://hal.archives-ouvertes.fr/\@HALID}{HAL:\@HALID}}.%
       \fi\par
     }%footnotesize
   \end{abstract}
@@ -373,7 +376,7 @@
   \hypersetup{%
     pdftitle={\@JOURNALA\ \@VOLUME\ (\@YEAR), \papernum@name\ \@PAPERNUM, \@doiprefix\@DOI}}%
   \hypersetup{pdfkeywords={\@KEYWORDS}}%
-  \hypersetup{pdfproducer={\@JOURNAL\ Managing Editor http://\@URL/}}%
+  \hypersetup{pdfproducer={\@JOURNAL\ Managing Editor https://\@URL}}%
   \hypersetup{pdfcreator={LaTeX with ejpecp.cls v1.8.2}}%
   \hypersetup{pdfsubject={Probability Theory}}%
   \hypersetup{pdfauthor={Please see \@doiprefix\@DOI}}%
@@ -383,8 +386,8 @@
 \def\@MRExtract#1 #2!{#1}     % thanks, Martin!
 \newcommand{\MR}[1]{% we need to strip the "(...)"
   \xdef\@MRSTRIP{\@MRExtract#1 !}%
-  \href{http://www.ams.org/mathscinet-getitem?mr=\@MRSTRIP}{MR-\@MRSTRIP}}
-\newcommand{\ARXIV}[1]{\href{http://arXiv.org/abs/#1}{arXiv:#1}}
+  \href{https://mathscinet.ams.org/mathscinet-getitem?mr=\@MRSTRIP}{MR-\@MRSTRIP}}
+\newcommand{\ARXIV}[1]{\href{https://arXiv.org/abs/#1}{arXiv:#1}}
 \def\bibliography@size{\small}
 \renewenvironment{thebibliography}[1]
   {%
@@ -487,7 +490,7 @@
 \renewcommand{\@evenfoot}{%
   \normalfont\footnotesize\@HBLOB\hfil
   \small\raisebox{-1em}{Page \thepage/\@PAGEEND}\hfil
-  \footnotesize\href{http://\@URL/}{http://\@URL/}}
+  \footnotesize\href{\@FULLURL}{https://\@URL}}
 \renewcommand{\@oddfoot}{\@evenfoot}
 \renewcommand{\@evenhead}{\hfil\@SHORTTITLE\hfil}
 \renewcommand{\@oddhead}{\@evenhead}

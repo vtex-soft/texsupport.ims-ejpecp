@@ -20,7 +20,7 @@ and https://www.imstat.org/journals-and-publications/electronic-communications-i
 -   The class internals benefited from the comments of S\'ebastien GOU\"EZEL
 -   The `getmref.py` script is Copyright (c) 2017 S. TOLUSIS, J. PITMAN, L. TOLENE
 -   The `getmref.py` script is free software licensed under the GPL
--   See http://www.e-publications.org/ims/support/batchmref.html
+-   See https://www.e-publications.org/ims/support/batchmref.html
 
 ## FILE LIST
 
@@ -68,7 +68,9 @@ https://github.com/vtex-soft/texsupport.ims-ejpecp
 
 ## CHANGELOG
 
--   2020/08/05 v1.8.3
+-   2020/08/26 v1.8.3
+    -   Updated URLs
+-   2020/08/05
     -   Updated `getmref.py`
     -   Updated README and converted to Markdown syntax
 -   2020/07/30 v1.8.2
