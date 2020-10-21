@@ -26,7 +26,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{ejpecp}
 %<*class>   
-    [2020/08/26 v1.8.3 class for EJP and ECP journals]
+    [2020/10/21 v1.9.0 class for EJP and ECP journals]
 %</class>
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2019-2020 Edgaras SAKURAS, VTeX, Lithuania.}
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
@@ -47,7 +47,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{805}
+% \CheckSum{845}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -81,6 +81,7 @@
 % \changes{v1.7}{2019/04/04}{merged with production version: fixltx2e removed, natbib setup with afterpackage, etc}
 % \changes{v1.8.2}{2020/07/30}{no. prefix updated and msc2020}
 % \changes{v1.8.3}{2020/08/26}{Update URLs}
+% \changes{v1.9.0}{2020/10/21}{Supplement envirnment}
 % \GetFileInfo{ejpecp.dtx}
 %
 % \DoNotIndex{\newcommand,\newenvironment}
@@ -381,6 +382,26 @@
   \hypersetup{pdfsubject={Probability Theory}}%
   \hypersetup{pdfauthor={Please see \@doiprefix\@DOI}}%
   }%END-PDFFIELDS
+
+%% Supplement
+\def\supplement@name{Supplementary Material}
+\def\stitle#1{\def\@stitle{#1}}
+\def\stitle@fmt#1{\textbf{#1.}\ }
+\def\sdescription#1{\def\@sdescription{#1}}
+\def\suppsection@fmt{\section*{\supplement@name}}
+\long\def\supplement{\@ifnextchar[{\@supplement}{\@supplement[]}}
+\long\def\@supplement[#1]{%
+    \suppsection@fmt
+    \global\let\suppsection@fmt\smallskip
+    }
+\def\endsupplement{%
+    \@ifundefined{@stitle}%
+        {}%
+        {\stitle@fmt{\@stitle}}%
+    %
+    \@ifundefined{@sdescription}{}{\@sdescription}%
+    \par
+    }
 
 %% Bibliography
 \def\@MRExtract#1 #2!{#1}     % thanks, Martin!

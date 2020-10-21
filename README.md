@@ -68,6 +68,8 @@ https://github.com/vtex-soft/texsupport.ims-ejpecp
 
 ## CHANGELOG
 
+-   2020/10/21 v1.9.0
+    -   Supplement environment added
 -   2020/08/26 v1.8.3
     -   Updated URLs
 -   2020/08/05
