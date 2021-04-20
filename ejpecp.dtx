@@ -26,9 +26,9 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{ejpecp}
 %<*class>   
-    [2020/10/21 v1.9.0 class for EJP and ECP journals]
+    [2021/04/20 v1.11.0 class for EJP and ECP journals]
 %</class>
-%<class>\ClassInfo{ejpecp}{Copyright (c) 2019-2020 Edgaras SAKURAS, VTeX, Lithuania.}
+%<class>\ClassInfo{ejpecp}{Copyright (c) 2019-2021 Edgaras SAKURAS, VTeX, Lithuania.}
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2016-2017 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
 %<class>\ClassInfo{ejpecp}{Copyright (c), 2011-2015 BURDZY and CHAFAI for EJP-ECP.}
@@ -47,7 +47,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{845}
+% \CheckSum{952}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -81,7 +81,9 @@
 % \changes{v1.7}{2019/04/04}{merged with production version: fixltx2e removed, natbib setup with afterpackage, etc}
 % \changes{v1.8.2}{2020/07/30}{no. prefix updated and msc2020}
 % \changes{v1.8.3}{2020/08/26}{Update URLs}
-% \changes{v1.9.0}{2020/10/21}{Supplement envirnment}
+% \changes{v1.9.0}{2020/10/21}{Supplement environment}
+% \changes{v1.10.0}{2021/02/11}{acks and support}
+% \changes{v1.11.0}{2021/04/20}{preprint option}
 % \GetFileInfo{ejpecp.dtx}
 %
 % \DoNotIndex{\newcommand,\newenvironment}
@@ -162,6 +164,8 @@
 \DeclareOption{final}{%
   \PassOptionsToClass{final}{article}
   }
+\newif\if@ejpecp@preprint \@ejpecp@preprintfalse
+\DeclareOption{preprint}{\@ejpecp@preprinttrue}
 \DeclareOption*{%
   \PackageWarning{ejpecp}{Unknown option ‘\CurrentOption’}%
   }
@@ -235,6 +239,8 @@
 \newcommand{\ARXIVID}[1]{\gdef\@ARXIVID{#1}}
 \newcommand{\HALID}[1]{\gdef\@HALID{#1}}
 \newcommand{\ACKNO}[1]{\noindent\textbf{Acknowledgments.} #1}
+\def\acknowledgementsname{Acknowledgments}
+\newenvironment{acks}[1][\acknowledgementsname]{\noindent\textbf{#1.}\space\ignorespaces}{\par}
 \def\EMAIL#1{E-mail:~\texttt{\href{mailto:#1}{\nolinkurl{#1}}}}
 \newcommand{\BEMAIL}[1]{\newline\hspace*{1.8em}\EMAIL{#1}} % useful in ftnotes
 %% Logos
@@ -293,6 +299,15 @@
 \def\@doiprefix{https://doi.org/}
 \def\printdoi{\texttt{\href{\@doiprefix\@DOI}{\@doiprefix\@DOI}}}
 \def\msc@url{https://ams.org/mathscinet/msc/msc2020.html}
+%% for multiple thanks/support in title
+\def\title@makefnmark{%
+    \setbox\@tempboxa\hbox{\@textsuperscript{\normalfont\@thefnmark}}%
+    \@ifundefined{prev@makefnmark@wd}%
+        {\edef\prev@makefnmark@wd{0pt}}%
+        {\edef\prev@makefnmark@wd{\the\dimexpr\prev@makefnmark@wd+\wd\@tempboxa\relax}}%
+    \rlap{\hskip\prev@makefnmark@wd\unhbox\@tempboxa}%
+    }
+\def\title@thanks#1{\unskip\unkern\orig@thanks{#1}\ignorespaces}%
 %% make title long
 \renewcommand\title[1]{\gdef\@title{#1}}
 %% Macro handling the first page
@@ -300,35 +315,65 @@
 \newcommand{\FIRSTPAGE}{%
   \setcounter{page}{\@PAGESTART}%
   \title{\small 
+    \let\orig@thanks\thanks
     \ifx\@EJP\undefined\else
-      \@EJPLOGO
+      \if@ejpecp@preprint
+        \phantom{\@EJPLOGO}\par
+      \else
+        \@EJPLOGO
+      \fi
       \bigskip
-      \centerline{\@JOURNALA\ \textbf{\@VOLUME} (\@YEAR),\ 
-        \papernum@name\ \@PAPERNUM, \,\@PAGESTART--\@PAGEEND.}%
-      \centerline{ISSN:\ \texttt{\href{\@FULLURL}{\@ISSN}} %
-        \ifx\@DOI\undefined\else 
-          \ \printdoi
-        \fi}%
+      \if@ejpecp@preprint
+        \null\null
+      \else
+        \centerline{\@JOURNALA\ \textbf{\@VOLUME} (\@YEAR),\ 
+          \papernum@name\ \@PAPERNUM, \,\@PAGESTART--\@PAGEEND.}%
+        \centerline{ISSN:\ \texttt{\href{\@FULLURL}{\@ISSN}} %
+          \ifx\@DOI\undefined\else 
+            \ \printdoi
+          \fi}%
+      \fi
       \bigskip
       \bigskip
-      {\Large\bfseries\@TITLE\par}%
+      \bgroup
+        \@ifundefined{no@title@thanks@support}{%
+            \let\thanks\title@thanks
+            \let\@makefnmark\title@makefnmark
+            \let\support\thanks
+          }{}%
+        \Large\bfseries\@TITLE\par
+      \egroup
     \fi
     \ifx\@ECP\undefined
     \else
       \parbox[t]{9cm}{%
-        \@JOURNALA\ \textbf{\@VOLUME} (\@YEAR),
-        \papernum@name\ \@PAPERNUM, \@PAGESTART--\@PAGEEND.\\
-        \ifx\@DOI\undefined
-        \else 
-          \ \printdoi
-        \fi \\
-        ISSN:\ \texttt{\href{\@FULLURL}{\@ISSN}}%
+        \if@ejpecp@preprint
+        \else
+          \@JOURNALA\ \textbf{\@VOLUME} (\@YEAR),
+          \papernum@name\ \@PAPERNUM, \@PAGESTART--\@PAGEEND.\\
+          \ifx\@DOI\undefined
+          \else 
+            \ \printdoi
+          \fi \\
+          ISSN:\ \texttt{\href{\@FULLURL}{\@ISSN}}%
+        \fi
         }%
       \hfill
-      \@ECPLOGO\\
+      \if@ejpecp@preprint
+        \phantom{\@ECPLOGO}%
+      \else
+        \@ECPLOGO
+      \fi\\
       \bigskip
       \bigskip
-      {\Large\@TITLE\par}%
+      \bgroup
+        \@ifundefined{no@title@thanks@support}{%
+            \let\thanks\title@thanks
+            \let\@makefnmark\title@makefnmark
+            \let\support\thanks
+          }{}%
+        \Large\@TITLE\par
+      \egroup
     \fi
     }% end title
   \date{%
@@ -351,9 +396,13 @@
         \noindent
         Primary \@AMSSUBJ, Secondary \@AMSSUBJSECONDARY.\par
       \fi
-      \noindent
-      Submitted to \@JOURNAL\ on \@SUBMITTED,
-      final version accepted on \@ACCEPTED.\par
+      \if@ejpecp@preprint
+        \mbox{}\par
+      \else
+        \noindent
+        Submitted to \@JOURNAL\ on \@SUBMITTED,
+        final version accepted on \@ACCEPTED.\par
+      \fi
       \ifx\@ARXIVID\undefined
       \else
         \noindent
@@ -374,13 +423,16 @@
   }%END-FIRSTPAGE
 %% Macro setting the PDF title
 \newcommand{\PDFFIELDS}{% 
-  \hypersetup{%
-    pdftitle={\@JOURNALA\ \@VOLUME\ (\@YEAR), \papernum@name\ \@PAPERNUM, \@doiprefix\@DOI}}%
+  \if@ejpecp@preprint
+  \else
+    \hypersetup{%
+      pdftitle={\@JOURNALA\ \@VOLUME\ (\@YEAR), \papernum@name\ \@PAPERNUM, \@doiprefix\@DOI}}%
+    \hypersetup{pdfproducer={\@JOURNAL\ Managing Editor https://\@URL}}%
+    \hypersetup{pdfauthor={Please see \@doiprefix\@DOI}}%
+  \fi
   \hypersetup{pdfkeywords={\@KEYWORDS}}%
-  \hypersetup{pdfproducer={\@JOURNAL\ Managing Editor https://\@URL}}%
-  \hypersetup{pdfcreator={LaTeX with ejpecp.cls v1.8.2}}%
+  \hypersetup{pdfcreator={LaTeX with ejpecp.cls \@nameuse{ver@ejpecp.cls}}}%
   \hypersetup{pdfsubject={Probability Theory}}%
-  \hypersetup{pdfauthor={Please see \@doiprefix\@DOI}}%
   }%END-PDFFIELDS
 
 %% Supplement
@@ -509,9 +561,9 @@
   \href{\@doiprefix\@DOI}%
     {\@JOURNAL\ \textbf{\@VOLUME}\, (\@YEAR),\ paper \@PAPERNUM.}}
 \renewcommand{\@evenfoot}{%
-  \normalfont\footnotesize\@HBLOB\hfil
+  \normalfont\footnotesize\if@ejpecp@preprint\mbox{}\else\@HBLOB\fi\hfil
   \small\raisebox{-1em}{Page \thepage/\@PAGEEND}\hfil
-  \footnotesize\href{\@FULLURL}{https://\@URL}}
+  \footnotesize\if@ejpecp@preprint\mbox{}\else\href{\@FULLURL}{https://\@URL}\fi}
 \renewcommand{\@oddfoot}{\@evenfoot}
 \renewcommand{\@evenhead}{\hfil\@SHORTTITLE\hfil}
 \renewcommand{\@oddhead}{\@evenhead}

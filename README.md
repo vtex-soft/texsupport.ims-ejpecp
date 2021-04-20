@@ -6,11 +6,10 @@
 mathematical research periodicals "Electronic Journal of Probability" (EJP) 
 and "Electronic Communications in Probability" (ECP). The websites of these
 electronic journals are https://imstat.org/journals-and-publications/electronic-journal-of-probability/
-and https://www.imstat.org/journals-and-publications/electronic-communications-in-probability/
 
 ## COPYRIGHT
 
--   Copyright (c) 2019-2020 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
+-   Copyright (c) 2019-2021 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
 -   Copyright (c) 2018 by Deimantas GALCIUS, VTeX, Lithuania for EJP-ECP
 -   Copyright (c) 2016-2017 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
 -   Copyright (c) 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
@@ -68,6 +67,10 @@ https://github.com/vtex-soft/texsupport.ims-ejpecp
 
 ## CHANGELOG
 
+-   2021/04/20 v1.11.0
+    -   preprint option added
+-   2021/02/11 v1.10.0
+    -   acks environment added and support macro
 -   2020/10/21 v1.9.0
     -   Supplement environment added
 -   2020/08/26 v1.8.3
