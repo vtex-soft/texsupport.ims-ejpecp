@@ -53,7 +53,7 @@ electronic journals are https://imstat.org/journals-and-publications/electronic-
 
 `ejpecp` is a LaTeX2e document class designed to be used with a `pdflatex` engine.
 `ejpecp` relies on the following packages: `amsmath`, `amsfonts`, `amssymb`, `amsthm`,
-`bera`, `dsfont`, `hyperref`, `geometry`, `graphicx`, `lastpage`, `latexsym`, `mathtools`, 
+`bera`, `dsfont`, `hyperref`, `geometry`, `graphicx`, `latexsym`, `mathtools`, 
 `microtype`, `afterpackage`. It was also successfully tested with the next 
 generation engine `lualatex`.
 
@@ -67,6 +67,8 @@ https://github.com/vtex-soft/texsupport.ims-ejpecp
 
 ## CHANGELOG
 
+-   2021/08/17 v1.11.1
+    -   Removed dependency on `lastpage` package
 -   2021/04/20 v1.11.0
     -   preprint option added
 -   2021/02/11 v1.10.0

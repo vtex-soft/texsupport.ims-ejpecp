@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-% Copyright (c) 2019-2020 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
+% Copyright (c) 2019-2021 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
 % Copyright (c) 2018 by Deimantas GALCIUS, VTeX, Lithuania
 % Copyright (c) 2016-2017 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
 % Copyright (c), 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
@@ -26,7 +26,7 @@
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{ejpecp}
 %<*class>   
-    [2021/04/20 v1.11.0 class for EJP and ECP journals]
+    [2021/08/17 v1.11.1 class for EJP and ECP journals]
 %</class>
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2019-2021 Edgaras SAKURAS, VTeX, Lithuania.}
 %<class>\ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
@@ -47,7 +47,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{952}
+% \CheckSum{968}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -84,6 +84,7 @@
 % \changes{v1.9.0}{2020/10/21}{Supplement environment}
 % \changes{v1.10.0}{2021/02/11}{acks and support}
 % \changes{v1.11.0}{2021/04/20}{preprint option}
+% \changes{v1.11.1}{2021/08/17}{removed dependency on lastpage package}
 % \GetFileInfo{ejpecp.dtx}
 %
 % \DoNotIndex{\newcommand,\newenvironment}
@@ -183,7 +184,6 @@
 \fi
 \RequirePackage{mathtools}
 \RequirePackage{microtype}
-\RequirePackage{lastpage}
 \RequirePackage{latexsym}
 \ifx\@NODS\undefined
   \RequirePackage{dsfont}
@@ -215,7 +215,7 @@
 \newcommand{\@PAPERNUM}{0}
 \newcommand{\@YEAR}{2012}
 \newcommand{\@PAGESTART}{1}
-\newcommand{\@PAGEEND}{\pageref{LastPage}}  % using lastpage package
+\newcommand{\@PAGEEND}{\@ifundefined{ejpecp@lastpage}{\@PAGESTART}{\ejpecp@lastpage}}
 \newcommand{\@SUBMITTED}{FIXME!}
 \newcommand{\@ACCEPTED}{FIXME!}
 \newcommand{\TITLE}[1]{\renewcommand{\@TITLE}{#1}}
@@ -232,7 +232,10 @@
 \newcommand{\PAPERNUM}[1]{\renewcommand{\@PAPERNUM}{#1}}
 \newcommand{\YEAR}[1]{\renewcommand{\@YEAR}{#1}}
 \newcommand{\PAGESTART}[1]{\renewcommand{\@PAGESTART}{#1}}
-\newcommand{\PAGEEND}[1]{\renewcommand{\@PAGEEND}{#1}}
+\newcommand{\PAGEEND}[1]{%
+    \let\write@ejpecp@lastpage\relax
+    \renewcommand{\@PAGEEND}{#1}%
+    }
 \newcommand{\SUBMITTED}[1]{\renewcommand{\@SUBMITTED}{#1}}
 \newcommand{\ACCEPTED}[1]{\renewcommand{\@ACCEPTED}{#1}}
 \newcommand{\DOI}[1]{\gdef\@DOI{#1}}
@@ -557,12 +560,15 @@
   \let\mathbb=\mathds
 \fi
 %% Headings
+\def\write@ejpecp@lastpage{\immediate\write\@auxout{\string\xdef\string\ejpecp@lastpage{\the\c@page}}}
 \newcommand{\@HBLOB}{%
   \href{\@doiprefix\@DOI}%
     {\@JOURNAL\ \textbf{\@VOLUME}\, (\@YEAR),\ paper \@PAPERNUM.}}
 \renewcommand{\@evenfoot}{%
   \normalfont\footnotesize\if@ejpecp@preprint\mbox{}\else\@HBLOB\fi\hfil
-  \small\raisebox{-1em}{Page \thepage/\@PAGEEND}\hfil
+  \small
+  \write@ejpecp@lastpage
+  \raisebox{-1em}{Page \thepage/\@PAGEEND}\hfil
   \footnotesize\if@ejpecp@preprint\mbox{}\else\href{\@FULLURL}{https://\@URL}\fi}
 \renewcommand{\@oddfoot}{\@evenfoot}
 \renewcommand{\@evenhead}{\hfil\@SHORTTITLE\hfil}
