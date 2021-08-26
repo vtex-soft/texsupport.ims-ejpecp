@@ -28,14 +28,8 @@ electronic journals are https://imstat.org/journals-and-publications/electronic-
 -   `LPPL` - a copy of the LaTeX Project Public License
 -   `README.md` - this file itself!
 -   `getmref.py` - Python2 script to add MR URLs in bibliographies 
--   `ejpecp.dtx` - class source file 
--   `ejpecp.ins` - class install file
+-   `ejpecp.cls` - class file 
 -   `ejpecp.pdf` - class documentation
-
-## HOW TO BUILD `ejpecp.cls`
-
--   `pdflatex ejpecp.ins` produces `ejpecp.cls`
--   `pdflatex ejpecp.dtx` produces `ejpecp.pdf`
 
 ## INSTRUCTIONS FOR EJP-ECP AUTHORS
 

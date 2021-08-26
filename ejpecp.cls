@@ -1,135 +1,35 @@
-% \iffalse meta-comment
-%
-% Copyright (c) 2019-2021 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
-% Copyright (c) 2018 by Deimantas GALCIUS, VTeX, Lithuania
-% Copyright (c) 2016-2017 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
-% Copyright (c), 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
-% ---------------------------------------------------------------------------
-% 
-% This file may be distributed and/or modified under the
-% conditions of the LaTeX Project Public License, either version 1.2
-% of this license or (at your option) any later version.
-% The latest version of this license is in:
-%
-%   https://www.latex-project.org/lppl.txt
-%
-% and version 1.2 or later is part of all distributions of LaTeX 
-% version 1999/12/01 or later.
-%
-% \fi
-%
-% \iffalse
-%<*driver>
-\ProvidesFile{ejpecp.dtx}
-%</driver>
-%
-%<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<class>\ProvidesClass{ejpecp}
-%<*class>   
+%%
+%% This is file `ejpecp.cls',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ejpecp.dtx  (with options: `class')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (c) 2019-2021 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
+%% Copyright (c) 2018 by Deimantas GALCIUS, VTeX, Lithuania for EJP-ECP
+%% Copyright (c) 2016-2017 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
+%% Copyright (c), 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    https://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesClass{ejpecp}
     [2021/08/17 v1.11.1 class for EJP and ECP journals]
-%</class>
-%<class>\ClassInfo{ejpecp}{Copyright (c) 2019-2021 Edgaras SAKURAS, VTeX, Lithuania.}
-%<class>\ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
-%<class>\ClassInfo{ejpecp}{Copyright (c) 2016-2017 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
-%<class>\ClassInfo{ejpecp}{Copyright (c), 2011-2015 BURDZY and CHAFAI for EJP-ECP.}
-%
-%<*driver>
-\documentclass[10pt]{ltxdoc}
-\usepackage[pdftex]{hyperref}
-\hypersetup{pdfborder=0 0 0}
-\usepackage[a4paper,margin=2.5cm]{geometry}
-\EnableCrossrefs         
-\CodelineIndex
-\RecordChanges
-\begin{document}
-  \DocInput{ejpecp.dtx}
-\end{document}
-%</driver>
-% \fi
-%
-% \CheckSum{968}
-%
-% \CharacterTable
-%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-%   Digits        \0\1\2\3\4\5\6\7\8\9
-%   Exclamation   \!     Double quote  \"     Hash (number) \#
-%   Dollar        \$     Percent       \%     Ampersand     \&
-%   Acute accent  \'     Left paren    \(     Right paren   \)
-%   Asterisk      \*     Plus          \+     Comma         \,
-%   Minus         \-     Point         \.     Solidus       \/
-%   Colon         \:     Semicolon     \;     Less than     \<
-%   Equals        \=     Greater than  \>     Question mark \?
-%   Commercial at \@     Left bracket  \[     Backslash     \\
-%   Right bracket \]     Circumflex    \^     Underscore    \_
-%   Grave accent  \`     Left brace    \{     Vertical bar  \|
-%   Right brace   \}     Tilde         \~}
-% 
-% \changes{v0.5}{2011/11/26}{Initial version.}
-% \changes{v0.57}{2011/12/01}{Improvements, see the README file.}
-% \changes{v0.577}{2011/12/12}{Improvements, see the README file.}
-% \changes{v0.5772}{2011/12/24}{Improvements, see the README file.}
-% \changes{v0.57721}{2012/01/09}{Improvements, see the README file.}
-% \changes{v0.577215}{2012/01/09}{Improvements, see the README file.}
-% \changes{v1.0}{2012/12/12}{First stable version, see the README file.}
-% \changes{v1.1}{2014/12/13}{Corrected stable version, see the README file.}
-% \changes{v1.2}{2015/12/23}{Transition to EJMS/VTEX/ProjectEuclid.}
-% \changes{v1.3}{2016/02/23}{Updated journal URLs and DOI output format}
-% \changes{v1.4}{2016/04/06}{Abstract baselineskip correction}
-% \changes{v1.5}{2016/09/06}{hypertexnames=false configuration for hyperref package}
-% \changes{v1.6}{2019/03/28}{full url doi, package maintaining and shorttitle info}
-% \changes{v1.7}{2019/04/04}{merged with production version: fixltx2e removed, natbib setup with afterpackage, etc}
-% \changes{v1.8.2}{2020/07/30}{no. prefix updated and msc2020}
-% \changes{v1.8.3}{2020/08/26}{Update URLs}
-% \changes{v1.9.0}{2020/10/21}{Supplement environment}
-% \changes{v1.10.0}{2021/02/11}{acks and support}
-% \changes{v1.11.0}{2021/04/20}{preprint option}
-% \changes{v1.11.1}{2021/08/17}{removed dependency on lastpage package}
-% \GetFileInfo{ejpecp.dtx}
-%
-% \DoNotIndex{\newcommand,\newenvironment}
-%
-% \title{The ejpecp class\thanks{\fileinfo\ \fileversion\ dated \filedate.}%
-%   \thanks{Current maintainer of class file is
-%   \href{https://vtex.lt}{VTeX, Lithuania}. Please send all queries to
-%   \href{mailto:latex-support@vtex.lt}{\texttt{latex-support@vtex.lt}}.}}
-%
-% \author{K. Burdzy\and \href{http://djalil.chafai.net/}{D. Chafa\"\i}}
-%
-% \maketitle
-%
-% \section{Introduction}
-%
-% The \emph{ejpecp} \LaTeXe\ class is designed for the typesetting of
-% articles for the mathematical research periodicals Electronic Journal or
-% Probability (EJP) and Electronic Communications in Probability (ECP).
-%
-% \section{Usage}
-%
-% This class works only with the pdflatex engine. See the sample file for its
-% usage.
-%
-% \iffalse 
-%
-% \DescribeMacro{\amacro} %
-% This macro does nothing.\index{doing nothing|usage} It is merely an example.
-% If this were a real macro, you would put a paragraph here describing what
-% the macro is supposed to do, what its mandatory and optional arguments are,
-% and so forth.
-%
-% \DescribeEnv{anenv} %
-% This environment does nothing. It is merely an example. If this were a real
-% environment, you would put a paragraph here describing what the environment
-% is supposed to do, what its mandatory and optional arguments are, and so
-% forth. %
-%
-% \fi 
-%
-% \StopEventually{\PrintChanges\PrintIndex}
-%
-% \section{Implementation}
-%
-%    \begin{macrocode}
+\ClassInfo{ejpecp}{Copyright (c) 2019-2021 Edgaras SAKURAS, VTeX, Lithuania.}
+\ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
+\ClassInfo{ejpecp}{Copyright (c) 2016-2017 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
+\ClassInfo{ejpecp}{Copyright (c), 2011-2015 BURDZY and CHAFAI for EJP-ECP.}
 %% We declare and handle our class options
 \DeclareOption{EJP}{%
   \newcommand{\@EJP}{}
@@ -155,7 +55,7 @@
 \DeclareOption{NODS}{% asks to avoid renaming \mathbb into \mathds
   \newcommand{\@NODS}{}
   }
-\DeclareOption{PSTRICKS}{% pstricks and pspicture. 
+\DeclareOption{PSTRICKS}{% pstricks and pspicture.
   % File must be compiled with "latex --shell-escape", then use dvipdf
   \newcommand{\@PSTRICKS}{}
   }
@@ -170,10 +70,9 @@
 \DeclareOption*{%
   \PackageWarning{ejpecp}{Unknown option ‘\CurrentOption’}%
   }
-%\ExecuteOptions{EJP}
 \ProcessOptions\relax
 %% We use the standard article class
-\LoadClass[a4paper,10pt,twoside]{article} 
+\LoadClass[a4paper,10pt,twoside]{article}
 %% Packages and their options
 \RequirePackage{graphicx}
 \ifx\@PSTRICKS\undefined
@@ -193,7 +92,6 @@
 \fi
 \RequirePackage{geometry}
 \geometry{a4paper,portrait,left=3.5cm,right=3.5cm,top=3.5cm,bottom=3.5cm}
-%\RequirePackage{charter} % Ph. Carmona
 \RequirePackage{bera} % beware that the logo is sensitive to default font change
 \RequirePackage{hyperref}
 \hypersetup{
@@ -251,7 +149,7 @@
   % This version is for bera 10pt (depends on the font via "em" and "ex")
   \centerline{%
     \hbox{%
-      \vrule  height -0.4 pt depth 0.8 pt width 27.7 em\space 
+      \vrule  height -0.4 pt depth 0.8 pt width 27.7 em\space
       \kern   -27.8 em\space
       \raise   0.03ex  \hbox {\bf  E}\space
       \raise   0.06ex \hbox {l}\space
@@ -317,7 +215,7 @@
 \def\papernum@name{no.}
 \newcommand{\FIRSTPAGE}{%
   \setcounter{page}{\@PAGESTART}%
-  \title{\small 
+  \title{\small
     \let\orig@thanks\thanks
     \ifx\@EJP\undefined\else
       \if@ejpecp@preprint
@@ -329,10 +227,10 @@
       \if@ejpecp@preprint
         \null\null
       \else
-        \centerline{\@JOURNALA\ \textbf{\@VOLUME} (\@YEAR),\ 
+        \centerline{\@JOURNALA\ \textbf{\@VOLUME} (\@YEAR),\
           \papernum@name\ \@PAPERNUM, \,\@PAGESTART--\@PAGEEND.}%
         \centerline{ISSN:\ \texttt{\href{\@FULLURL}{\@ISSN}} %
-          \ifx\@DOI\undefined\else 
+          \ifx\@DOI\undefined\else
             \ \printdoi
           \fi}%
       \fi
@@ -355,7 +253,7 @@
           \@JOURNALA\ \textbf{\@VOLUME} (\@YEAR),
           \papernum@name\ \@PAPERNUM, \@PAGESTART--\@PAGEEND.\\
           \ifx\@DOI\undefined
-          \else 
+          \else
             \ \printdoi
           \fi \\
           ISSN:\ \texttt{\href{\@FULLURL}{\@ISSN}}%
@@ -415,17 +313,17 @@
       \ifx\@HALID\undefined
       \else
         \noindent
-        Supersedes     
+        Supersedes
         \texttt{\href{https://hal.archives-ouvertes.fr/\@HALID}{HAL:\@HALID}}.%
       \fi\par
     }%footnotesize
   \end{abstract}
-  
-  \smallskip  
+
+  \smallskip
 
   }%END-FIRSTPAGE
 %% Macro setting the PDF title
-\newcommand{\PDFFIELDS}{% 
+\newcommand{\PDFFIELDS}{%
   \if@ejpecp@preprint
   \else
     \hypersetup{%
@@ -495,7 +393,7 @@
       {3pt}                     % Space above
       {3pt}                     % Space below
       {\itshape}                % Body font
-      {}                        % Indent amount (empty = no indent, 
+      {}                        % Indent amount (empty = no indent,
                                 %        \parindent = para indent)
       {\bfseries\sffamily}      % Thm head font
       {.}                       % Punctuation after thm head
@@ -506,7 +404,7 @@
       {3pt}                     % Space above
       {3pt}                     % Space below
       {}                        % Body font
-      {}                        % Indent amount (empty = no indent, 
+      {}                        % Indent amount (empty = no indent,
                                 %        \parindent = para indent)
       {\bfseries\sffamily}      % Thm head font
       {.}                       % Punctuation after thm head
@@ -514,7 +412,7 @@
                                 %                       \newline = linebreak
       {}                        % Thm head spec (can be left empty, meaning `normal')
 \fi
-%% 
+%%
 \ifx\@NOAMS\undefined
   \theoremstyle{ejpecpbodyit}
 \fi
@@ -625,9 +523,3 @@
 \endinput
 %%
 %% End of file `ejpecp.cls'.
-%% Macros
-\AtBeginDocument{\FIRSTPAGE\PDFFIELDS}
-\AtEndDocument{\vfill}  
-%    \end{macrocode}
-% \Finale
-\endinput
