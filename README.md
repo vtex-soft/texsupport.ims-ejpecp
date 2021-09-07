@@ -51,6 +51,40 @@ electronic journals are https://imstat.org/journals-and-publications/electronic-
 `microtype`, `afterpackage`. It was also successfully tested with the next 
 generation engine `lualatex`.
 
+## TROUBLESHOOTING
+
+-   If You get an error after compilation (e.g. in MiKTeX v2.9):
+
+        ! pdfTeX error (font expansion): auto expansion is only possible with scalable fonts.
+
+    Try one of the following:
+
+    1.  Add _Latin Modern_ font loading lines before the document class line:
+
+            \RequirePackage{lmodern}
+            \RequirePackage[T1]{fontenc}
+            \documentclass[EJP]{ejpecp}
+
+        It will change bitmap _Computer Modern_ fonts with scalable _Latin Modern_ fonts.
+
+    2.  If 1st step does not solve the problem, then use `nofontexpansion` option:
+
+        \documentclass[nofontexpansion,EJP]{ejpecp}
+
+    It will turn off font expansion feature of `microtype` package. 
+
+    **No worries**: font expansion will still be used at production stage.
+
+-   If _Bitstream Vera_ font (i.e. `bera` package) is not available in Your TeX distribution, use `nobera` class option and add alternative main document font:
+
+        \documentclass[nobera,EJP]{ejpecp}
+        \usepackage{mathptmx}% URW Nimbus Roman
+        \usepackage[T1]{fontenc}
+
+    Some suggestions can be found here: https://www.tug.org/FontCatalogue/seriffonts.html
+
+    **No worries**: `bera` package will still be used at production stage.
+
 ## LATEST VERSION
 
 The latest version is on the CTAN at: 
@@ -61,6 +95,8 @@ https://github.com/vtex-soft/texsupport.ims-ejpecp
 
 ## CHANGELOG
 
+-   2021/09/07 v1.11.2
+    -   Added `nobera` and `nofontexpansion` options
 -   2021/08/17 v1.11.1
     -   Removed dependency on `lastpage` package
 -   2021/04/20 v1.11.0

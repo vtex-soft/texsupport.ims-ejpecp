@@ -25,7 +25,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{ejpecp}
-    [2021/08/17 v1.11.1 class for EJP and ECP journals]
+    [2021/09/07 v1.11.2 class for EJP and ECP journals]
 \ClassInfo{ejpecp}{Copyright (c) 2019-2021 Edgaras SAKURAS, VTeX, Lithuania.}
 \ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
 \ClassInfo{ejpecp}{Copyright (c) 2016-2017 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
@@ -67,6 +67,10 @@
   }
 \newif\if@ejpecp@preprint \@ejpecp@preprintfalse
 \DeclareOption{preprint}{\@ejpecp@preprinttrue}
+\newif\if@ejpecp@nofontexpansion \@ejpecp@nofontexpansionfalse
+\DeclareOption{nofontexpansion}{\@ejpecp@nofontexpansiontrue}
+\newif\if@ejpecp@nobera \@ejpecp@noberafalse
+\DeclareOption{nobera}{\@ejpecp@noberatrue}
 \DeclareOption*{%
   \PackageWarning{ejpecp}{Unknown option ‘\CurrentOption’}%
   }
@@ -83,6 +87,9 @@
 \fi
 \RequirePackage{mathtools}
 \RequirePackage{microtype}
+\if@ejpecp@nofontexpansion
+    \microtypesetup{expansion=false}
+\fi
 \RequirePackage{latexsym}
 \ifx\@NODS\undefined
   \RequirePackage{dsfont}
@@ -92,7 +99,10 @@
 \fi
 \RequirePackage{geometry}
 \geometry{a4paper,portrait,left=3.5cm,right=3.5cm,top=3.5cm,bottom=3.5cm}
-\RequirePackage{bera} % beware that the logo is sensitive to default font change
+\if@ejpecp@nobera
+\else
+    \RequirePackage{bera} % beware that the logo is sensitive to default font change
+\fi
 \RequirePackage{hyperref}
 \hypersetup{
   pagebackref=false,
