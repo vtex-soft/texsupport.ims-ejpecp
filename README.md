@@ -95,6 +95,8 @@ https://github.com/vtex-soft/texsupport.ims-ejpecp
 
 ## CHANGELOG
 
+-   2021/11/04 v1.11.3
+    -   Removed dash in MR
 -   2021/09/07 v1.11.2
     -   Added `nobera` and `nofontexpansion` options
 -   2021/08/17 v1.11.1

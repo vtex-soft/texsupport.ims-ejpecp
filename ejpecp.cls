@@ -25,7 +25,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{ejpecp}
-    [2021/09/07 v1.11.2 class for EJP and ECP journals]
+    [2021/11/04 v1.11.3 class for EJP and ECP journals]
 \ClassInfo{ejpecp}{Copyright (c) 2019-2021 Edgaras SAKURAS, VTeX, Lithuania.}
 \ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
 \ClassInfo{ejpecp}{Copyright (c) 2016-2017 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
@@ -370,7 +370,7 @@
 \def\@MRExtract#1 #2!{#1}     % thanks, Martin!
 \newcommand{\MR}[1]{% we need to strip the "(...)"
   \xdef\@MRSTRIP{\@MRExtract#1 !}%
-  \href{https://mathscinet.ams.org/mathscinet-getitem?mr=\@MRSTRIP}{MR-\@MRSTRIP}}
+  \href{https://mathscinet.ams.org/mathscinet-getitem?mr=\@MRSTRIP}{MR\@MRSTRIP}}
 \newcommand{\ARXIV}[1]{\href{https://arXiv.org/abs/#1}{arXiv:#1}}
 \def\bibliography@size{\small}
 \renewenvironment{thebibliography}[1]
