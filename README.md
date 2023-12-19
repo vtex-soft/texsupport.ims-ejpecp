@@ -9,7 +9,7 @@ electronic journals are https://imstat.org/journals-and-publications/electronic-
 
 ## COPYRIGHT
 
--   Copyright (c) 2019-2021 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
+-   Copyright (c) 2019-2023 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
 -   Copyright (c) 2018 by Deimantas GALCIUS, VTeX, Lithuania for EJP-ECP
 -   Copyright (c) 2016-2017 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
 -   Copyright (c) 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
@@ -95,6 +95,8 @@ https://github.com/vtex-soft/texsupport.ims-ejpecp
 
 ## CHANGELOG
 
+-   2023/12/18 v1.12.0
+    -   author `\orcid` macro added
 -   2021/11/04 v1.11.3
     -   Removed dash in MR
 -   2021/09/07 v1.11.2

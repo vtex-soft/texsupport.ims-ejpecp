@@ -8,7 +8,7 @@
 %% 
 %% This is a generated file.
 %% 
-%% Copyright (c) 2019-2021 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
+%% Copyright (c) 2019-2023 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
 %% Copyright (c) 2018 by Deimantas GALCIUS, VTeX, Lithuania for EJP-ECP
 %% Copyright (c) 2016-2017 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
 %% Copyright (c), 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
@@ -25,8 +25,8 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{ejpecp}
-    [2021/11/04 v1.11.3 class for EJP and ECP journals]
-\ClassInfo{ejpecp}{Copyright (c) 2019-2021 Edgaras SAKURAS, VTeX, Lithuania.}
+    [2023/12/19 v1.12.0 class for EJP and ECP journals]
+\ClassInfo{ejpecp}{Copyright (c) 2019-2023 Edgaras SAKURAS, VTeX, Lithuania.}
 \ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
 \ClassInfo{ejpecp}{Copyright (c) 2016-2017 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
 \ClassInfo{ejpecp}{Copyright (c), 2011-2015 BURDZY and CHAFAI for EJP-ECP.}
@@ -130,6 +130,43 @@
 \newcommand{\SHORTTITLE}[1]{\renewcommand{\@SHORTTITLE}{#1}}
 \newcommand{\DEDICATORY}[1]{\gdef\@DEDICATORY{#1}}
 \newcommand{\AUTHORS}[1]{\author{#1}}
+% somehow simplified preto/appto (as in etoolbox)
+\protected\def\ejpecp@preto#1#2{%
+    \ifdefined#1%
+        \edef#1{\unexpanded{#2}\unexpanded\expandafter{#1}}%
+    \else
+        \edef#1{\unexpanded{#2}}%
+    \fi
+    }%
+\protected\def\ejpecp@appto#1#2{%
+    \ifdefined#1%
+        \edef#1{\unexpanded\expandafter{#1}\unexpanded{#2}}%
+    \else
+        \edef#1{\unexpanded{#2}}%
+    \fi
+    }
+% for multiple footnotes and/or orcids in author
+\newdimen\prev@makefnmark@wd
+\protected\def\authors@makefnmark{%
+    \setbox\@tempboxa\hbox{\@textsuperscript{\normalfont\@thefnmark}}%
+    \rlap{\hskip\prev@makefnmark@wd\unhcopy\@tempboxa}%
+    \advance\prev@makefnmark@wd by \wd\@tempboxa
+    \setbox\@tempboxa\box\voidb@x
+    }
+%
+\AtEndOfClass{%
+    \ejpecp@preto\@maketitle{%
+        \ejpecp@preto\@author{%
+            \prev@makefnmark@wd=\z@
+            \let\@makefnmark=\authors@makefnmark
+            }%
+        \ejpecp@appto\and{%
+            \prev@makefnmark@wd=\z@
+            \let\@makefnmark=\authors@makefnmark
+            }%
+        }%
+    }
+%
 \let\FIRSTNAMES\@firstofone
 \let\SURNAME\@firstofone
 \newcommand{\KEYWORDS}[1]{\renewcommand{\@KEYWORDS}{#1}}
@@ -200,6 +237,68 @@
       }%
     }%
   }%EJPLOGO
+% ORCID
+\RequirePackage{ifpdf}
+\def\orcid@base{https://orcid.org/}
+\def\orcid@special@pdf#1{\special{pdf: #1}}
+\def\orcid@pic@pdf{%
+    \hbox to 9bp{%
+        \vrule width \z@ height 9bp%
+        \orcid@special@pdf{% 
+            q 1 0 0 -1 0 9 cm q 0.65098 0.807843 0.223529 rg 9 4.5 m 9 
+            6.984 6.984 9 4.5 9 c 2.016 9 0 6.984 0 4.5 c 0 2.016 2.016 
+            0 4.5 0 c 6.984 0 9 2.016 9 4.5 c h 9 4.5 m f 1 1 1 rg 2.492 
+            2.781 0.543 3.766 re f 3.828 2.781 m 5.289 2.781 l 6.684 
+            2.781 7.297 3.777 7.297 4.664 c 7.297 5.633 6.539 6.551 
+            5.297 6.551 c 3.828 6.551 l h 4.371 6.062 m 5.23 6.062 l 
+            6.457 6.062 6.738 5.129 6.738 4.664 c 6.738 3.91 6.258 3.27 
+            5.203 3.27 c 4.371 3.27 l h 4.371 6.062 m f 3.117 1.996 m 
+            3.117 2.191 2.961 2.352 2.762 2.352 c 2.566 2.352 2.41 2.191 
+            2.41 1.996 c 2.41 1.801 2.566 1.641 2.762 1.641 c 2.961 
+            1.641 3.117 1.805 3.117 1.996 c h 3.117 1.996 m f Q Q
+            }\hss
+        }%
+    }
+\def\orcid@pic@ps{%
+    \hbox to 9bp{%
+        \vrule width \z@ height 9bp%
+        \special{" gsave 0 0 9 9 rectclip
+            1 0 0 -1 0 9 6 array astore concat gsave 0.65098 0.807843 0.223529 setrgbcolor
+            9 4.5 moveto 9 6.984 6.984 9 4.5 9 curveto 2.016 9 0 6.984 0 4.5 curveto 
+            0 2.016 2.016 0 4.5 0 curveto 6.984 0 9 2.016 9 4.5 curveto closepath
+            9 4.5 moveto fill 1 setgray 2.492 2.781 0.543 3.766 exch dup neg 3 1 roll 5 3 roll 
+            moveto 0 rlineto 0 exch rlineto 0 rlineto closepath fill
+            3.828 2.781 moveto 5.289 2.781 lineto 6.684 2.781 7.297 3.777 7.297 4.664 curveto 
+            7.297 5.633 6.539 6.551 5.297 6.551 curveto 3.828 6.551 lineto closepath
+            4.371 6.062 moveto 5.23 6.062 lineto 6.457 6.062 6.738 5.129 6.738 4.664 curveto 
+            6.738 3.91 6.258 3.27 5.203 3.27 curveto 4.371 3.27 lineto closepath
+            4.371 6.062 moveto fill 3.117 1.996 moveto 3.117 2.191 2.961 2.352 2.762 2.352 curveto 
+            2.566 2.352 2.41 2.191 2.41 1.996 curveto 2.41 1.801 2.566 1.641 2.762 1.641 curveto 
+            2.961 1.641 3.117 1.805 3.117 1.996 curveto closepath
+            3.117 1.996 moveto fill grestore grestore
+            }\hss
+        }%
+    }
+\ifpdf
+    \let\orcid@pic\orcid@pic@pdf
+\else
+    \ifdefined\XeTeXversion
+        \def\orcid@special@pdf#1{\special{pdf:literal #1}}
+        \let\orcid@pic\orcid@pic@pdf
+    \else
+        \let\orcid@pic\orcid@pic@ps
+    \fi
+\fi
+\def\orcid#1{%
+    \setbox\@tempboxa\hbox{\raisebox{-1.3\p@}[\z@][\z@]{{%
+        \def\null{}%
+        \href{\orcid@base#1}{\orcid@pic}%
+        }}}%
+    \rlap{\hskip\prev@makefnmark@wd\unhcopy\@tempboxa}%
+    \advance\prev@makefnmark@wd by \wd\@tempboxa
+    \setbox\@tempboxa\box\voidb@x
+    }
+%
 \newcommand{\@ECPLOGO}{% designed when Ren\'e Carmona was in charge of ECP
   \raisebox{0.3cm}{\parbox[t]{1.3in}{\noindent\rule{1.3in}{1.6pt}\\
       \textbf{ ELECTRONIC}\\
@@ -213,10 +312,9 @@
 %% for multiple thanks/support in title
 \def\title@makefnmark{%
     \setbox\@tempboxa\hbox{\@textsuperscript{\normalfont\@thefnmark}}%
-    \@ifundefined{prev@makefnmark@wd}%
-        {\edef\prev@makefnmark@wd{0pt}}%
-        {\edef\prev@makefnmark@wd{\the\dimexpr\prev@makefnmark@wd+\wd\@tempboxa\relax}}%
-    \rlap{\hskip\prev@makefnmark@wd\unhbox\@tempboxa}%
+    \rlap{\hskip\prev@makefnmark@wd\unhcopy\@tempboxa}%
+    \advance\prev@makefnmark@wd by \wd\@tempboxa
+    \setbox\@tempboxa\box\voidb@x
     }
 \def\title@thanks#1{\unskip\unkern\orig@thanks{#1}\ignorespaces}%
 %% make title long
