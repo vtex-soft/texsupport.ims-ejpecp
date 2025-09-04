@@ -8,7 +8,7 @@
 %% 
 %% This is a generated file.
 %% 
-%% Copyright (c) 2019-2023 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
+%% Copyright (c) 2019-2021 by Edgaras SAKURAS, VTeX, Lithuania for EJP-ECP
 %% Copyright (c) 2018 by Deimantas GALCIUS, VTeX, Lithuania for EJP-ECP
 %% Copyright (c) 2016-2017 by Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP
 %% Copyright (c), 2011-2015 by Krzysztof BURDZY and Djalil CHAFAI for EJP-ECP
@@ -25,7 +25,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{ejpecp}
-    [2023/12/19 v1.12.0 class for EJP and ECP journals]
+    [2025/09/04 v1.12.2 class for EJP and ECP journals]
 \ClassInfo{ejpecp}{Copyright (c) 2019-2023 Edgaras SAKURAS, VTeX, Lithuania.}
 \ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
 \ClassInfo{ejpecp}{Copyright (c) 2016-2017 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
@@ -475,7 +475,10 @@
   {%
     \section*{\refname
       \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}%
-    \phantomsection
+    \ifdefined\HCode
+    \else
+      \phantomsection
+    \fi
     \addcontentsline{toc}{section}{\refname}%
     \list{\@biblabel{\@arabic\c@enumiv}}%
     {\settowidth\labelwidth{\@biblabel{#1}}%
@@ -625,6 +628,17 @@
 \InputIfFileExists{ejpecp.cfg}
     {}
     {\def\papernum@name{article no.}}
+%%
+\csuse{ejpecp@cfg@fileinfo}
+\ifdefined\jobstart@date@info
+\else
+    \edef\jobstart@date@info{\the\year\two@digits{\the\month}\two@digits{\the\day}}
+\fi
+\ifnum\jobstart@date@info>20250903\relax
+  \ifdefined\noaccents@
+    \noaccents@
+  \fi
+\fi
 %% Macros
 \AtBeginDocument{\FIRSTPAGE\PDFFIELDS}
 \AtEndDocument{\vfill}
