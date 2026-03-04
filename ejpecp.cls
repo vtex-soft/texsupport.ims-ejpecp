@@ -25,7 +25,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{ejpecp}
-    [2025/09/04 v1.12.2 class for EJP and ECP journals]
+    [2026/03/04 v1.12.3 class for EJP and ECP journals]
 \ClassInfo{ejpecp}{Copyright (c) 2019-2023 Edgaras SAKURAS, VTeX, Lithuania.}
 \ClassInfo{ejpecp}{Copyright (c) 2018 Deimantas GALCIUS, VTeX, Lithuania.}
 \ClassInfo{ejpecp}{Copyright (c) 2016-2017 Eimantas GUMBAKIS, VTeX, Lithuania for EJP-ECP.}
@@ -87,6 +87,7 @@
 \fi
 \RequirePackage{mathtools}
 \RequirePackage{microtype}
+\RequirePackage{etoolbox}
 \if@ejpecp@nofontexpansion
     \microtypesetup{expansion=false}
 \fi
